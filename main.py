@@ -18,5 +18,5 @@ window.configure(width=500, height = 500)
 window.configure(bg='red')
 window.mainloop()
 #Putting Window Center
-
+#Test
 #Actual Program stuff down here, activating buttons on screen
