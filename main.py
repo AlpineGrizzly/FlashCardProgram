@@ -3,20 +3,28 @@
 #Sort by category
 from tkinter import *
 
-#Create GUI
 window = Tk()
-#Create Menu Options
-stBtn = Button(window, text="Start", fg='red')
-stBtn.place(x=240, y=250)
-exitBtn = Button(window, text="Exit", fg='red')
-exitBtn.place(x=240, y=300)
-#Create Label
-title = Label(window, text="French Flash Card Program", fg='red', font=("Helvetica",25))
-title.place(x=50, y= 200)
+window.resizable(0,0)
+window.geometry("700x500")
+window.configure(bg='grey')
+
+#Destroy the window when quit is called
+def quit():
+    window.destroy()
+
+#Creating Menu
+title = Label(window, text="French Flash Card Program", fg='grey', font=("Times New Roman", 25))
+title.pack_propagate(0)
+title.pack(fill="both",expand=1)
+
+stBtn = Button(window, text="Start", font=("Times New Roman", 15), fg='red')
+stBtn.pack_propagate(0)
+stBtn.pack(fill="both",expand=1)
+
+exitBtn = Button(window, command = quit, text="Exit", font=("Times New Roman", 15), fg='red')
+exitBtn.pack_propagate(0)
+exitBtn.pack(fill="both",expand=1)
 window.title("French Flash Card Program")
-window.configure(width=500, height = 500)
-window.configure(bg='red')
 window.mainloop()
-#Putting Window Center
-#Test
-#Actual Program stuff down here, activating buttons on screen
+
+
