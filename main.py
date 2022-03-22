@@ -3,6 +3,7 @@
 #Sort by category
 import tkinter
 from tkinter import *
+import time
 
 window = Tk()
 window.resizable(0,0)
@@ -12,32 +13,84 @@ window.title("FlashStudy Program")
 
 def quit():
     window.destroy()
-#@labelTitle: creates title for application
+
+# Reads the cards into the program
+def readCard():
+    f = open('FrenchDeck.txt', 'r')
+    f.close()
+
+def closePopup(top):
+    top.destroy()
+
+def writeCard(frontText, backText):
+    f = open('FrenchDeck.txt', 'a')
+    f.write(frontText) #Get text from popup entry fields
+    f.write(backText)
+    f.close()
+
+def addCard():
+    top = Toplevel(window)
+    top.geometry("200x150")
+    labelf = Label(top, text="Enter the front card")
+    labelf.pack()
+    frontCard = Entry(top, width=50)
+    frontCard.pack()
+    labelb = Label(top, text="Enter the back card")
+    labelb.pack()
+    backCard = Entry(top, width=50)
+    backCard.pack()
+    submitBtn = Button(top, text="Add Card", command=writeCard(frontCard.get(), backCard.get()))
+    submitBtn.pack()
+    #exitBtn = Button(top, text="exit", command=closePopup(top))
+    #exitBtn.pack()
+
+
+def getFront():
+    labelFront.configure(text="Bonjour, Dalton")
+
+def getNext():
+    labelFront.configure(text="Comment ca va?")
+
+def checkAns():
+    global entryAns
+    string = entryAns.get()
+    if(string == "Hello, Dalton"):
+        labelFront.configure(text="Correct!")
+        labelFront.after(3000, getNext)
+
+    else:
+        labelFront.configure(text="That was not correct, Try again!")
+        labelFront.after(3000, getFront)
+
 labelTitle = Label(window, height = 1,
                    width = 500,
                    text = "FlashStudy Program",
                    font = ("Arial", 15))
-# @labelFront: will show the front of study cards
-# @labelBack: will show the back of study cards
+labelTitle.pack()
+
 labelFront = Label(window,
                    height = 10, width=40,
-                   text="Example front card here",
+                   text="Bonjour, Dalton",
                    font=("Arial", 15))
 labelFront.place(relx=0.5,
-                 rely=0.3,
+                 rely=0.5,
                  anchor='center')
-labelBack = Label(window,
-                  height = 10, width = 40,
-                  text="Example back card here",
-                  font=("Arial", 15))
-labelBack.place(relx=0.5,
+
+entryAns = Entry(window, width = 50)
+entryAns.place(relx=0.5,
                 rely=0.8,
                 anchor='center')
-# Buttons for application
-# @startBtn: will shuffle through all cards that are in the deck
-# @addcardBtn: will add a new card to the deck, prompting user to add front and back
-# @editdeckBtn: allow the user to delete cards from deck
-# @exitappBtn: exits out of application
+entryAns.focus_set()
+
+checkBtn = Button(window,
+                  height = 1, width = 10,
+                  text = "Check",
+                  font = ("Arial", 10),
+                  command = checkAns)
+checkBtn.place(relx = 0.5,
+               rely = 0.9,
+               anchor = 'center')
+
 startBtn = Button(window,
                   height = 2, width = 10,
                   text = "Start",
@@ -48,7 +101,8 @@ startBtn.place(relx = 0,
 addcardBtn = Button(window,
                   height = 2, width = 10,
                   text = "Add Card",
-                  font = ("Arial", 10))
+                  font = ("Arial", 10),
+                  command = addCard)
 addcardBtn.place(relx = 0.87,
                  rely = 0.3,
                  anchor = 'w')
@@ -67,8 +121,8 @@ exitappBtn.place(relx = 0,
                   rely = 0.4,
                   anchor = 'w')
 
-labelTitle.pack()
-#Application loop
+
+
 window.mainloop()
 
 
